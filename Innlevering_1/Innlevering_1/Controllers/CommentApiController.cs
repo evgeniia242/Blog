@@ -34,13 +34,13 @@ namespace Innlevering_1.Controllers
             return comments;
         }
 
-        ////GET api/Comments
-        //[System.Web.Http.HttpGet]
-        //public IEnumerable<Comment> GetAllComments()
-        //{
-        //    IEnumerable<Comment> comments = repository.GetAll();
-        //    return comments;
-        //}
+        //GET api/Comments
+        [System.Web.Http.HttpGet]
+        public IEnumerable<Comment> GetAllComments()
+        {
+            IEnumerable<Comment> comments = repository.GetAll();
+            return comments;
+        }
 
         //POST api/Comments
         [Authorize]
