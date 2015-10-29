@@ -1,0 +1,46 @@
+﻿@model Innlevering_1.Models.Blog
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@if (User.Identity.IsAuthenticated)
+{
+<h2>Create new blog</h2>
+
+    using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Blog</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @*@Html.LabelFor(model => model.Author, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                <div class="col-md-10">
+                    @*@Html.EditorFor(model => model.Author, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Author)*@
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.BlogTitel, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.BlogTitel, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.BlogTitel)
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    }
+
+    <div>
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+}

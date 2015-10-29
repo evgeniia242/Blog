@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Innlevering_1.Models.Blog>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Blogs</h2>
+
+@foreach (var item in Model)
+{
+    <div>
+        <h3>@Html.ActionLink(item.BlogTitel, "Index", "Post", new { id = item.BlogId }, null)</h3>
+        <p>
+            by @Html.DisplayFor(modelItem => item.Owner.UserName) |
+            @if (@Html.ValueFor(modelItem => item.Closed).ToString().Equals("False"))
+            {
+                if (User.Identity.IsAuthenticated && item.Owner.UserName == User.Identity.Name)
+                {
+                    @Html.ActionLink("Close this blog", "Close", new { id = item.BlogId })
+                }
+            }
+            else
+            {
+                <span>This blog is closed</span>
+            }
+        </p>        
+    </div>
+}
+
+@if (User.Identity.IsAuthenticated)
+{
+    <p>
+        @Html.ActionLink("Create new blog", "Create")
+    </p>
+}

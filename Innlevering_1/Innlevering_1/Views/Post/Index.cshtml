@@ -1,0 +1,38 @@
+﻿@model IEnumerable<Innlevering_1.Models.Post>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2></h2>
+@{String isBlogClosed = null;
+    bool isUserOwner = false;}
+
+@foreach (var item in Model)
+{
+    isBlogClosed = @Html.ValueFor(modelItem => item.Blog.Closed).ToString();
+    <div>
+        <h3>@Html.ActionLink(item.PostTitle, "Index", "Comment", new { id = item.PostId }, null)</h3>
+        <p>@Html.DisplayFor(modelItem => item.Text)</p>
+        <p>@Html.DisplayFor(modelItem => item.Date)</p>
+        @*<p>@{Html.RenderAction("CommentController", "Index", item.PostId);}</p>*@
+        @*<p>@Html.Action("CommentController", "Index", item.PostId)</p>*@
+        @if (User.Identity.IsAuthenticated && item.Owner.UserName == User.Identity.Name)
+        {
+            <p>
+                @Html.ActionLink("Update", "Edit", new { id = item.PostId })
+                @Html.ActionLink("Delete", "Delete", new { id = item.PostId })
+                @{isUserOwner = true;}
+            </p>        
+        }
+    </div>
+}
+@if (isUserOwner)
+{
+    <p>
+        @if(!isBlogClosed.Equals("True"))
+        {
+            @Html.ActionLink("Add new post", "Create")
+        }
+    </p>
+}

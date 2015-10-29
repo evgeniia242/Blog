@@ -1,0 +1,29 @@
+﻿@model IEnumerable<Innlevering_1.Models.Comment>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2></h2>
+@{int numberOfComments = 0;
+    DateTime date = new DateTime();}
+
+@foreach (var item in Model)
+{
+    numberOfComments++;
+
+    if (date == null)
+    {
+        date = item.Date;
+    }
+
+    if (date != null && item.Date > date)
+    {
+        date = item.Date;
+    }
+}
+
+<p>
+    commnets: @numberOfComments | last comment: @date
+</p>
+
